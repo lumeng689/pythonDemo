@@ -37,13 +37,15 @@ uidNumber: ${kk}
 
 kk = 1
 
+maxUser = 10
+
 for i in range(1, 11):
     dn = 'ou=ou_%s,dc=maxcrc,dc=com' % i
     ou = 'ou_%s' % i
     t = Template(groupTpl)
     gTxt.write(t.substitute(dn=dn, ou=ou))
 
-    for u1 in range(random.randint(0, 20)):
+    for u1 in range(random.randint(0, maxUser)):
         kk += 1
         t = Template(userTpl)
         uTxt.write(t.substitute(dn=dn, u1=u1, ff=i, kk=kk))
@@ -54,7 +56,7 @@ for i in range(1, 11):
         t = Template(groupTpl)
         gTxt.write(t.substitute(dn=dn, ou=ou))
 
-        for u1 in range(random.randint(0, 20)):
+        for u1 in range(random.randint(0, maxUser)):
             kk += 1
             t = Template(userTpl)
             uTxt.write(t.substitute(dn=dn, u1=u1, ff='%d_%d' % (i, j), kk=kk))
@@ -65,22 +67,22 @@ for i in range(1, 11):
             t = Template(groupTpl)
             gTxt.write(t.substitute(dn=dn, ou=ou))
 
-            for u1 in range(random.randint(0, 20)):
+            for u1 in range(random.randint(0, maxUser)):
                 kk += 1
                 t = Template(userTpl)
                 uTxt.write(t.substitute(dn=dn, u1=u1, ff='%d_%d_%d' % (i, j, m), kk=kk))
 
-                for n in range(1, 11):
-                    dn = 'ou=ou_%s_%s_%s_%s,ou=ou_%s_%s_%s,ou=ou_%s_%s,ou=ou_%s,dc=maxcrc,dc=com' % (
-                        i, j, m, n, i, j, m, i, j, i)
-                    ou = 'ou_%s_%s_%s_%s\n' % (i, j, m, n)
-                    t = Template(groupTpl)
-                    gTxt.write(t.substitute(dn=dn,ou=ou))
+            for n in range(1, 11):
+                dn = 'ou=ou_%s_%s_%s_%s,ou=ou_%s_%s_%s,ou=ou_%s_%s,ou=ou_%s,dc=maxcrc,dc=com' % (
+                    i, j, m, n, i, j, m, i, j, i)
+                ou = 'ou_%s_%s_%s_%s\n' % (i, j, m, n)
+                t = Template(groupTpl)
+                gTxt.write(t.substitute(dn=dn,ou=ou))
 
-                    for u1 in range(random.randint(0, 20)):
-                        kk += 1
-                        t = Template(userTpl)
-                        uTxt.write(t.substitute(dn=dn, u1=u1, ff='%d_%d_%d_%d' % (i, j, m, n), kk=kk))
+                for u1 in range(random.randint(0, maxUser)):
+                    kk += 1
+                    t = Template(userTpl)
+                    uTxt.write(t.substitute(dn=dn, u1=u1, ff='%d_%d_%d_%d' % (i, j, m, n), kk=kk))
 
 gTxt.close()
 uTxt.close()
