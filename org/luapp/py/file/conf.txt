@@ -1,0 +1,7 @@
+[userinfo]
+name=zhangsan
+pwd=abc
+
+[study]
+base=15
+junior=20
